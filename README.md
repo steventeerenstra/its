@@ -7,6 +7,6 @@ SAS macros to analyse interrupted time series derived from subject within cluste
 * examples how to report for tables
 
 
-example for analysis section
+example text for analysis section
 
 
