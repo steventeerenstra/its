@@ -1,5 +1,6 @@
 
 **************DATA MANAGEMENT ***********************;
+*** data set contains records per months, these are first aggregated ***;
 **** read data *****;
 options pagesize=60;
 * set the working directory;
@@ -34,7 +35,6 @@ proc freq data=sec1;table pt_simple*pt_simple_num/missing;run;
 
 
 ** variables to be analyzed;
-** note: kennis_tot (Knowledge) niet in de dataset;  
 data ds_variables; 
 length varname $30.; length varlabel $50.; * to allow variable lengths;
 input varname varlabel & ; * with two spaces or more at the end of varlabel reading ends;
@@ -121,6 +121,7 @@ run;
 ************* macros **************************************;
 
 ** for in the macro, make them local if necessary;
+** macro compares two models differing in fixed effects **;
 %macro ar_model1vs2(ds=_sum, outcome_name=, outcome_n=,
 cluster=zkh, period=cmonth, intervention=intervention, 
 model1_label=%str(no trend), model1=%str(intervention),
@@ -426,8 +427,8 @@ ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_colltrans.rtf";
 %let style=%str(/style=[fontsize=14pt just=c];);
 proc odstext;
 p '***************************************************************'&style;
-p 'Note the ceiling effects in CollaboRATE.'&style;
-p 'Given that the residuals are more symmetrical distributed than expected.'&style;
+p 'comments .....'&style;
+p 'comments ...........'&style;
 p 'it seems that the trend fits a bit better, but not much better than no trend'&style;
 p 'so easiest to take the model without trend'&style;
 p '***************************************************************'&style;
@@ -436,153 +437,3 @@ run;
 outcome_name=coll_trans_mean, outcome_n=coll_trans_n); 
 ods rtf close;
 
-
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_colltrans_logit.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'To mitigate the ceiling effects, logit transform was used.'&style;
-p '=>ln( [coll_trans/100]/[1-coll_trans/100] ).'&style;
-p 'This gives a bit less ceiling effects, '&style;
-p 'and a bit more symmetrical residuals in the models'&style;
-p 'same conclusion as for untransformed'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(ds=_sum, 
-outcome_name=logit_coll_trans_mean,outcome_n=logit_coll_trans_n);
-ods rtf close;
-
-
-* Decisional Conflict Scale;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_dcs.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'Decisional Conflict Scale.'&style;
-p 'The residuals are reasonably symmetrical distributed.'&style;
-p 'AICs, RMSE mostly better for  no trend models '&style;
-p 'and histograms/fit plots comparable, so we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(ds=_sum, 
-outcome_name=dcs_tot_trans_mean, outcome_n=dcs_tot_trans_n);
-ods rtf close;
-
-* Cure Beliefs;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_cb.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'Cure beliefs.'&style;
-p 'The histograms and the time series plots show clearly the binary character.'&style;
-p 'many values at 0 or 1.' &style; 
-p 'interpreting the estimates may make less sense, better descriptive statistics' &style;
-p 'but treating as continuous may make sense to assess direction of effect (p-value for difference)'&style;
-p 'AICC favor no trend model, RMSE are comparable, but so we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(ds=_sum, outcome_name=curebeliefs_mean, outcome_n=curebeliefs_n);
-ods rtf close;
-
-* Personal Control;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_pc.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'Personal Control.'&style;
-p 'many values at 0 and some at 1.' &style;
-p 'The histograms and the time series plots show clearly the binary character.'&style;
-p 'interpreting the estimates may make less sense, so better decriptive statistics' &style;
-p 'but treating as continuous may make sense to assess direction of effect (p-value for difference)'&style;
-p 'AICC and RMSE favor no trend model, but so we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(ds=_sum, outcome_name=personalcontrol_mean,outcome_n=personalcontrol_n);
-ods rtf close;
-
-
-* Cancer Worry Scale;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_cws.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'Cancer Worry Scale.'&style;
-p 'No ceiling/bottom effects. Nicely normally distributed (histograms more or less symmetrical).' &style;
-p 'AICCs favor no trend, histograms and RMSE similar or better' &style;
-p 'Thus, we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(outcome_name=cws_score_mean, outcome_n=cws_score_n);
-ods rtf close;
-
-* Risk estimation / Risico 1;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_risk1.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'Risk estimation.'&style;
-p 'No real ceiling/bottom effects. Mostly symmetrical residuals.' &style;
-p 'AICCs, histograms and RMSE similar or better for no trend' &style;
-p 'Thus, we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(outcome_name=risico_1_mean, outcome_n=risico_1_n);
-ods rtf close;
-
-* Risk appraisal / Risico 2;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_risk2.rtf";
-proc odstext;
-p '***************************************************************'&style;
-p 'Risk appraisal'&style;
-p 'Fit is not too good, only for STA better with trend than without'&style;
-p 'AICC/RMSE favor overall the model without trend'&style;
-p 'Thus, we choose the model with no trend'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(outcome_name=risico_2_mean, outcome_n=risico_2_n);
-
-
-
-* Risk comparison / Risico 3;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_risk3.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'Risico comparison.' &style;
-p 'There is some tendency for ceiling and bottom effects. Nevertheless the residuals seem reasonable.'&style;
-p 'Except for OLVG (perhaps STA), the model without trend fits best (AICC and RMSE)'&style;
-p 'Thus, we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(outcome_name=risico_3_mean, outcome_n=risico_3_n);
-ods rtf close;
-
-
-
-* SF-12: Physical Component score;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_pcs.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'SF-12: Physical Component score.' &style;
-p 'Fit is not too good.'&style;
-p 'Mostly the model without trend fits similar /better (histograms, AICC and RMSE)'&style;
-p 'Thus, we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(outcome_name=PCS_score_mean, outcome_n=PCS_score_n);
-ods rtf close;
-
-* SF-12: Mental Component score;
-ods rtf file="/home/u63416505/SHOUT_BC/results/230830_sec_mcs.rtf";
-%let style=%str(/style=[fontsize=14pt just=c];);
-proc odstext;
-p '***************************************************************'&style;
-p 'SF-12: Mental Component score.' &style;
-p 'Fit is reasonable.'&style;
-p 'Mostly the model without trend fits similar /better (histograms, AICC and RMSE)'&style;
-p 'Thus, we choose the no trend model.'&style;
-p '***************************************************************'&style;
-run;
-%ar_model1vs2(outcome_name=MCS_score_mean, outcome_n=MCS_score_n);
-ods rtf close;
