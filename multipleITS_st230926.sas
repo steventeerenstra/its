@@ -118,6 +118,7 @@ footnote " ";
 title1 "35 clusters, alpha=0.05 (two-sided), icc=0.05";
 title2 "~50% of clusters around 35% (size=70), ~25% of clusters around 10% (size=80), ~25% of clusters around 50% (size=50)";
 
+options orientation=landcape;
 ods rtf file="Example.rtf";
 data init2;length config $100;
 *** 2 post;
@@ -185,6 +186,7 @@ size= 50;p_ctl=0.1; delta=p_ctl*reduction; sd=sqrt(p_ctl*(1-p_ctl));
 output;
 end;
 run;
+
 %power_its_cont(alpha=0.05, ds_measurements=init2);
 
 ods rtf close;
