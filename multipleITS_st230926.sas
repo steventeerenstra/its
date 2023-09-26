@@ -114,29 +114,14 @@ footnote " ";
 
 
 
-/* test case for comparison with old program
-title1 "RENEW: 36 clusters, alpha=0.05 (two-sided)";
-data init2;
-config=1;
-do cluster=1 to 36;
-k=2; m=2; delta=0.3*0.17; sd=0.5; n=70;rho=0.05; r=0.8; r_dmax=0.5;
-output;
-end;
-run;
-
-title2 "correlation over time (from 0.8 [adjecent periods] to 0.5 [first and last period])";
-%power_its_cont(alpha=0.05, ds_measurements=init2);
-*/
-
-ods rtf file="230926_RENEW_BenjaminWendt.rtf";
-title1 "RENEW: 35 clusters, alpha=0.05 (two-sided), icc=0.05";
+*** Example with four configurations, description of the config can be included in the variable "config" ***;
+title1 "35 clusters, alpha=0.05 (two-sided), icc=0.05";
 title2 "~50% of clusters around 35% (size=70), ~25% of clusters around 10% (size=80), ~25% of clusters around 50% (size=50)";
-title3 "high correlation between periods, k=2 pre, relative reduction 17%";
-title4 "config 1: 2 post measurements; config=3: 3 post-measurements";
 
+ods rtf file="Example.rtf";
 data init2;length config $100;
 *** 2 post;
-config="1: 2 pre, 2 post, 17% reduction";
+config="1: 2 pre, 2 post, 17% reduction"; 
 r=0.8; r_dmax=0.5;k=2;m=2;rho=0.05;reduction=0.17;
 * clusters around 35%;
 do cluster=1 to 18;
@@ -167,7 +152,7 @@ do cluster=27 to 35;
 size= 50;p_ctl=0.1; delta=p_ctl*reduction; sd=sqrt(p_ctl*(1-p_ctl));
 output;
 end;
-*** config 3 smaller effect: 0.13 (three post)***;
+*** config 3 smaller effect: 0.15 (three post)***;
 config="3: pre 2 post 3, 15% reduction";
 r=0.8; r_dmax=0.5;k=2;m=3;rho=0.05;reduction=0.15;
 * clusters around 35%;
@@ -183,7 +168,7 @@ do cluster=27 to 35;
 size= 50;p_ctl=0.1; delta=p_ctl*reduction; sd=sqrt(p_ctl*(1-p_ctl));
 output;
 end;
-*** config 4 higher correlation: 0.9***;
+*** config 4 lower correlation: 0.6 to 0.3***;
 config="3: pre 2 post 3, 17% reduction, low correlation 0.6 to 0.3";
 r=0.6; r_dmax=0.3;k=2;m=3;rho=0.05;reduction=0.17;
 * clusters around 35%;
@@ -200,8 +185,6 @@ size= 50;p_ctl=0.1; delta=p_ctl*reduction; sd=sqrt(p_ctl*(1-p_ctl));
 output;
 end;
 run;
-
-title2 "correlation over time (from 0.8 [adjacent periods] to 0.5 [between first and last period])";
 %power_its_cont(alpha=0.05, ds_measurements=init2);
 
 ods rtf close;
