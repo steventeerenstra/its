@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_power_its_cont",
+  "source_file": "multipleITS_st230926.sas",
+  "source_blob_sha": "aba031dde7e41a720eb692df76eeaac75b85442c",
+  "source_commit": "28f2c757acd7c20228697e54e98877654c38041f",
+  "notes": "Self-contained power-calculation script: defines %power_its_cont and builds the init2 dataset inline via DATA-step DO-loops (4 measurement configurations x 35 clusters), then calls the macro to compute CS/AR1/LEAR ITS power and the meta-analysis power table. Dropped only the ODS RTF file= destination and the 'orientation=landcape' typo; macro body and driver otherwise verbatim."
+}

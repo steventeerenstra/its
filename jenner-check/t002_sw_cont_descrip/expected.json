@@ -1,0 +1,12 @@
+{
+  "_captured_at": "2026-07-14T16:01:09Z",
+  "_captured_run_id": "r_f531ccea386347c3ab25e303b17a4157",
+  "status": "ok",
+  "exit_code": 1,
+  "log_contains": [
+    "NOTE: Read 96 rows from ds.",
+    "NOTE: Wrote _shift (96 rows, 6 columns)."
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}
