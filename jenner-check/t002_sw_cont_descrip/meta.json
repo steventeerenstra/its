@@ -1,0 +1,7 @@
+{
+  "bundle": "t002_sw_cont_descrip",
+  "source_file": "its200124.sas",
+  "source_blob_sha": "f44a681f96f912b761a2c66ca71ccdfe42492a6d",
+  "source_commit": "28f2c757acd7c20228697e54e98877654c38041f",
+  "notes": "Exercises the repo's %rm_design (PROC TABULATE design overview) and %sw_cont_descrip (PROC MEANS / SGPANEL / TABULATE descriptives for a repeated-measures continuous outcome) macros, taken verbatim from its200124.sas. The repo's own driver reads an external dataset via placeholder names; this caller supplies a small stepped-wedge mock (2 centers, 12 periods, 4 subjects per cluster-period, seeded rand) that satisfies the cluster/period/trt/outcome contract the macros expect. exit_code=1 is a benign cosmetic axis-option warning; the descriptive output is complete."
+}

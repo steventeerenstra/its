@@ -1,0 +1,70 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260714T061458Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA ds
+
+
+NOTE: Wrote ds (96 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Option TITLE2 changed to design overview: subjects per cluster-period and treatment assignment.
+NOTE: Option TITLE4 changed to treatments applied per cluster-period.
+NOTE: Option TITLE4 changed to check whether each cluster-period has one treatment?.
+NOTE: PROC TABULATE
+NOTE: Option TITLE2 changed to descriptives for the continuous outcome across cluster-periods.
+NOTE: DATA _null_
+
+
+NOTE: Read 96 rows from ds.
+NOTE: Wrote _null_ (96 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Option TITLE3 changed to description   ****score: symptom score *****.
+NOTE: Option TITLE4 changed to all values.
+NOTE: PROC MEANS
+NOTE: PROC MEANS statement used.
+NOTE: PROC SGPANEL data=ds
+
+NOTE: PROC SGPANEL output written to: ./ods_output/sgpanel.svg
+NOTE: Option TITLE4 changed to data size per cluster-period.
+NOTE: PROC TABULATE
+NOTE: Option TITLE4 changed to mean per cluster-period.
+NOTE: PROC TABULATE
+NOTE: Option TITLE3 changed to analysis    ****score: symptom score ****.
+NOTE: Option TITLE4 changed to time series plot per cluster).
+NOTE: Option TITLE5 changed to (note: periods with trt=0 and 1 are considered trt=1.
+NOTE: PROC MEANS
+NOTE: Output dataset _ClusPeriodMeans has 39 observations and 6 variables.
+NOTE: PROC MEANS statement used.
+WARNING: Unrecognized option in ROWAXIS/COLAXIS: Ident("alternate"), skipping.
+WARNING: Unrecognized option in ROWAXIS/COLAXIS: Ident("alternate"), skipping.
+NOTE: PROC SGPANEL data=_clusPeriodmeans
+
+NOTE: PROC SGPANEL output written to: ./ods_output/sgpanel.svg
+NOTE: Option TITLE4 changed to disregarding possible time trend:.
+NOTE: PROC MEANS
+NOTE: PROC MEANS statement used.
+NOTE: DATA _shift
+
+
+NOTE: Read 96 rows from ds.
+NOTE: Wrote _shift (96 rows, 6 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Option TITLE5 changed to shift in distribution by intervention: over *all* clusters.
+NOTE: PROC SGPLOT data=_shift
+
+NOTE: PROC SGPLOT output written to: ./ods_output/sgplot.svg
+NOTE: Option TITLE5 changed to shift in distribution by intervention: by cluster.
+NOTE: PROC SGPANEL data=_shift
+
+NOTE: PROC SGPANEL output written to: ./ods_output/sgpanel.svg
+NOTE: Option TITLE5 changed to shift in means, medians, boxplots.
+NOTE: PROC SGPANEL data=ds
+
+NOTE: PROC SGPANEL output written to: ./ods_output/sgpanel.svg
+NOTE: PROC MEANS
+NOTE: PROC MEANS statement used.

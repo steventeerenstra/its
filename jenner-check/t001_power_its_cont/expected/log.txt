@@ -1,0 +1,57 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260714T061458Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: Option TITLE changed to 35 clusters, alpha=0.05 (two-sided), icc=0.05.
+NOTE: Option TITLE2 changed to ~50% of clusters around 35% (size=70), ~25% of clusters around 10% (size=80), ~25% of clusters around 50% (size=50).
+NOTE: DATA init2
+
+
+NOTE: Wrote init2 (100 rows, 12 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _a
+
+
+NOTE: Read 100 rows from init2.
+NOTE: Wrote _a (100 rows, 25 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SORT data=_a
+
+NOTE: Read 100 rows from _a.
+NOTE: Wrote _a (100 rows, 25 columns).
+NOTE: PROC SORT statement used.
+NOTE: DATA _b
+
+
+NOTE: Read 100 rows from _a.
+NOTE: Wrote _b (100 rows, 47 columns).
+NOTE: DATA elapsed:
+  wall  0.01 seconds
+  cpu   0.01 seconds
+NOTE: Option TITLE6 changed to configurations (with power individual ITS):.
+NOTE: Option FOOTNOTE1 changed to de=design effect due to clustering, rho=intracluster correlation, size=cluster size.
+NOTE: Option FOOTNOTE2 changed to k= number of pre-measurements, m=number of post-measurements, d=distance between first and last measurement.
+NOTE: Option FOOTNOTE3 changed to r=corr. between subsequent measurements; r_dmax= corr. between first and last measurement).
+NOTE: Option FOOTNOTE4 changed to CS: corr. betw. all measurements the same; AR1/LEAR: corr decreases exponentially/linearly with distance betw.meas..
+NOTE: PROC PRINT data=_a
+
+NOTE: PROC PRINT completed: 100 observations printed, 18 variables
+NOTE: Option FOOTNOTE changed to  .
+NOTE: DATA out
+
+
+NOTE: Read 100 rows from _b.
+NOTE: Wrote out (3 rows, 48 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Option TITLE6 changed to power meta-analyis over the ITS of clusters.
+NOTE: Option FOOTNOTE changed to n_cluster is the number of clusters in the meta-analysis.
+NOTE: Option FOOTNOTE2 changed to CS: corr. betw. all measurements the same; AR1/LEAR: corr decreases exponentially/linearly with distance betw.meas..
+NOTE: PROC PRINT data=out
+
+NOTE: PROC PRINT completed: 3 observations printed, 4 variables
+NOTE: Option FOOTNOTE changed to  .
